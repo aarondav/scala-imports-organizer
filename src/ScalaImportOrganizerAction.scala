@@ -11,7 +11,7 @@ import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi._
-import com.intellij.psi.util.{PsiUtilBase, PsiTreeUtil}
+import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.plugins.scala.codeInspection.unusedInspections.ScalaOptimizeImportsFix
 import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder
 import org.jetbrains.plugins.scala.lang.psi.api.ScalaFile
@@ -49,7 +49,6 @@ case class Import(qualifier: String, name: String, rename: Option[String], expr:
   }
 }
 
-//import org.jetbrains.plugins.scala.lang.psi.ScalaPsiElement
 class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
 
   def actionPerformed(event: AnActionEvent) {
@@ -78,15 +77,11 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
 
   def hahaDoShit(event: AnActionEvent) {
     val psiClass: PsiClass = getPsiClassFromContext(event)
-    System.out.println("Hi!")
   }
 
   private def getPsiClassFromContext(e: AnActionEvent): PsiClass = {
     val psiFile: PsiFile = e.getData(LangDataKeys.PSI_FILE)
     val editor: Editor = e.getData(PlatformDataKeys.EDITOR)
-    val project: Project = e.getData(PlatformDataKeys.PROJECT)
-    val sFile = PsiUtilBase.getPsiFileInEditor(editor, project)
-    println (sFile + " / " + psiFile)
     if (psiFile == null || editor == null || !psiFile.isInstanceOf[ScalaFile]) {
       return null
     }
@@ -101,39 +96,12 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
       new ScalaOptimizeImportsFix().invoke(scalaFile.getProject, editor, scalaFile)
     }
 
-    System.out.println("FOUND: " + scalaFile)
-//    val importLines: List[String] = new ArrayList[String]
     val importMap = TreeMultimap.create[String, Import]()
     val priorImports = mutable.ArrayBuffer[ScImportExpr]()
     if (scalaFile != null) {
       val imports = importHolder.getImportStatements
-//      var i: PsiElement = PsiTreeUtil.getChildOfType(scalaFile, classOf[ScImportStmt])
-//      while (i != null && i.isInstanceOf[ScImportStmt]) {
-//        imports += i.asInstanceOf[ScImportStmt]
-//        i = i.asInstanceOf[ScImportStmt].getNextSiblingNotWhitespaceComment
-//      }
-//      val imports: Seq[ScImportStmt] = scalaFile.getImportStatements
-//      val it: Iterator[ScImportStmt] = imports.iterator
       for (st <- imports) {
-//        val st: ScImportStmt = it.next
-//        importLines.add(st.getText)
-//        val multiImport = "import (.*).\\{(.*)\\}".r
-//        val plainImport = "import (.*)"
-//        st.getText match {
-//          case multiImport(qualName, classes) =>
-//            println("Hello!")
-//          case plainImport(fullName) =>
-//
-//        }
-        System.out.println("<STATEMENT>")
-//        System.out.println("AST >> " + st.getNode.getFirstChildNode.getElementType)
-        System.out.println("AST ++>> " + st.getNode.getText)
         for (expr <- st.importExprs) {
-//          val plainImport = "(.*).(.*)".r
-//          expr.getText match {
-//            case plainImport(qualifier, selectors)
-//          }
-
           priorImports.add(expr)
 
           val qualifier = Option(expr.qualifier).map(_.qualName).getOrElse("")
@@ -146,14 +114,6 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
             case renameRegex(name, rename) => Import(qualifier, name, Some(rename), expr)
             case standardRegex(name) => Import(qualifier, name, None, expr)
           }.foreach(selector => importMap.put(qualifier, selector))
-//          println("Expr: " + expr.getText)
-//          println("Q: " + qualifier)
-//          println("S: " + selectors)
-////          System.out.println("Q: " + Option(expr.qualifier).map(_.qualName))
-////          System.out.println("R: " + expr.reference)
-//          for (name <- expr.getNames) {
-//            System.out.println("\tName: " + name)
-//          }
         }
       }
 
@@ -235,13 +195,8 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
         } else {
           val sortedImports = bucketedImports.removeAll(line)
           for (imp: Import <- sortedImports) {
-            val qualifier = if (imp.qualifier == "") "" else imp.qualifier + "."
-            val selector =  if (imp.rename == None) imp.name else "{" + imp.name + " => " + imp.rename.get + "}"
-
             if (newlineBuffered) {
               println()
-//              elements += ScalaPsiElementFactory.createNewLine(manager)
-//              elements += ScalaPsiElementFactory.createNewLine(manager)
               elements += makeNewLineElement(manager)
               newlineBuffered = false
             }
@@ -252,12 +207,6 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
             }
 
             joinedImport.add(imp)
-
-//            println("import " + qualifier + selector)
-//            elements += ScalaPsiElementFactory.createImportFromText("import " + qualifier + selector, manager)
-//            elements += ScalaPsiElementFactory.create.createWhitespace(manager)
-
-//            importMap.remove(imp.qualifier, imp) // TODO Ensure OK
           }
         }
       }
@@ -295,7 +244,6 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
   }
 
   def makeNewLineElement(manager: PsiManager): PsiElement = {
-//    ScalaPsiElementFactory.createExpressionFromText("\n\n", manager).getFirstChild.getNextSibling
     ScalaPsiElementFactory.createNewLine(manager, "\n\n")
   }
 

@@ -7,7 +7,7 @@ This is a plugin for IntelliJ which supplements the Scala language support by pr
 
 Installation
 ------------
-Download scala-imports-organizer.jar and place it into your IntelliJ's plugins/ folder. (Or install within IntelliJ from Files -> Settings -> Plugins -> Install plugin from disk.) Restart IntelliJ and make sure the Plugin is enabled from the Plugins settings.
+Download scala-import-organizer.jar and place it into your IntelliJ's plugins/ folder. (Or install within IntelliJ from Files -> Settings -> Plugins -> Install plugin from disk.) Restart IntelliJ and make sure the Plugin is enabled from the Plugins settings.
 
 Usage
 -----

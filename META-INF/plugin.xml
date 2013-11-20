@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.scalaImportsOrganizer</id>
   <name>Scala Imports Organizer</name>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <vendor email="aaron.d.dav@gmail.com">Aaron Davidson</vendor>
 
   <description><![CDATA[

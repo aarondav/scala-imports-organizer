@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.databricks.scalaImportOrganizer</id>
   <name>Scala Import Organizer</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <vendor email="aaron@databricks.com" url="http://www.databricks.com">Databricks</vendor>
 
   <description><![CDATA[

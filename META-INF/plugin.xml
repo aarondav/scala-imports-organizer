@@ -2,11 +2,10 @@
   <id>com.databricks.scalaImportOrganizer</id>
   <name>Scala Import Organizer</name>
   <version>0.1.0</version>
-  <vendor email="aaron@databricks.com" url="http://www.databricks.com">YourCompany</vendor>
+  <vendor email="aaron@databricks.com" url="http://www.databricks.com">Databricks</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <small>most HTML tags may be used</small>
+      Best-effort import organization for Scala.
       ]]></description>
 
   <change-notes><![CDATA[
@@ -18,36 +17,20 @@
   <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
   <idea-version since-build="107.105"/>
 
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
-
   <depends>org.intellij.scala</depends>
 
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
+  <application-components/>
 
-  <project-components>
-    <!-- Add your project components here -->
-  </project-components>
+  <project-components/>
 
   <actions>
       <action  id="ScalaImportOrganizer" class="ScalaImportOrganizerAction" text="Organize Scala Imports">
           <keyboard-shortcut first-keystroke="control shift O" keymap="$default"/>
           <add-to-group group-id="ToolsMenu" anchor="last"/>
       </action>
-    <!-- Add your actions here -->
-      <!--<group id="MyPlugin.SampleMenu" text="_Sample Menu" description="Sample menu">-->
-          <!--<add-to-group group-id="MainMenu" anchor="last"  />-->
-      <!--</group>-->
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
       <codeStyleSettingsProvider implementation="ScalaImportsCodeStyleSettingsProvider"/>
-
-    <!-- Add your extensions here -->
   </extensions>
 </idea-plugin>

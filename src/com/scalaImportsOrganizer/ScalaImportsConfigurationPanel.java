@@ -13,14 +13,14 @@ import org.jetbrains.plugins.scala.highlighter.ScalaEditorHighlighter;
 import javax.swing.*;
 import java.awt.*;
 
-public class ImportsPanel extends CodeStyleAbstractPanel {
+public class ScalaImportsConfigurationPanel extends CodeStyleAbstractPanel {
 
     private final JPanel panel;
     private final JLabel description;
     private final JTextArea importStyle;
     private final JCheckBox optimizeImports;
 
-    public ImportsPanel(@NotNull CodeStyleSettings settings) {
+    public ScalaImportsConfigurationPanel(@NotNull CodeStyleSettings settings) {
         super(settings);
 
         ScalaImportsStyleSettings mySettings = settings.getCustomSettings(ScalaImportsStyleSettings.class);

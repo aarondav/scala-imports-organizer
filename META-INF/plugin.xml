@@ -1,11 +1,11 @@
 <idea-plugin version="2">
-  <id>com.scalaImportOrganizer</id>
-  <name>Scala Import Organizer</name>
+  <id>com.scalaImportsOrganizer</id>
+  <name>Scala Imports Organizer</name>
   <version>0.1.1</version>
   <vendor email="aaron.d.dav@gmail.com">Aaron Davidson</vendor>
 
   <description><![CDATA[
-      Best-effort import organization for Scala.
+      Best-effort imports organization for Scala.
       ]]></description>
 
   <change-notes><![CDATA[
@@ -23,7 +23,7 @@
   <project-components/>
 
   <actions>
-      <action  id="ScalaImportOrganizer" class="com.scalaImportsOrganizer.ScalaImportOrganizerAction" text="Organize Scala Imports">
+      <action id="ScalaImportsOrganizer" class="com.scalaImportsOrganizer.ScalaImportsOrganizerAction" text="Organize Scala Imports">
           <keyboard-shortcut first-keystroke="control shift O" keymap="$default"/>
           <add-to-group group-id="ToolsMenu" anchor="last"/>
       </action>

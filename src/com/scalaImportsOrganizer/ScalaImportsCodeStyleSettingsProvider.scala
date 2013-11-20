@@ -10,7 +10,7 @@ import org.jetbrains.plugins.scala.ScalaFileType
 class ImportsTabbedCodeStylePanel(currentSettings: CodeStyleSettings, settings: CodeStyleSettings)
   extends TabbedLanguageCodeStylePanel(ScalaFileType.SCALA_LANGUAGE, currentSettings, settings) {
   protected override def initTabs(settings: CodeStyleSettings) {
-    addTab(new ImportsPanel(settings))
+    addTab(new ScalaImportsConfigurationPanel(settings))
   }
 }
 

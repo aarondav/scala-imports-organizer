@@ -3,7 +3,7 @@ package com.scalaImportsOrganizer
 import scala.collection.{Seq, mutable}
 import scala.collection.JavaConversions._
 
-import ScalaImportOrganizerAction.Import
+import ScalaImportsOrganizerAction.Import
 import com.google.common.collect.{Sets, TreeMultimap}
 import com.intellij.openapi.actionSystem._
 import com.intellij.openapi.application.ApplicationManager
@@ -44,9 +44,9 @@ import org.jetbrains.plugins.scala.lang.psi.impl.ScalaPsiElementFactory
  *
  * TODO: Optimize some.
  */
-class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
+class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
 
-  class ScalaImportOrganizer(scalaFile: ScalaFile, importHolder: ScImportsHolder, event: AnActionEvent) {
+  class ScalaImportsOrganizer(scalaFile: ScalaFile, importHolder: ScImportsHolder, event: AnActionEvent) {
     val manager = scalaFile.getManager
     val project = scalaFile.getProject
     val settings = ScalaImportsStyleSettings.getInstance(project)
@@ -274,7 +274,7 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
     withinWritableContext(event.getProject, "organize imports") {
       val (scalaFile, importHolder) = getScalaContext(event)
       if (scalaFile != null) {
-        new ScalaImportOrganizer(scalaFile, importHolder, event).organizeImports()
+        new ScalaImportsOrganizer(scalaFile, importHolder, event).organizeImports()
       }
     }
   }
@@ -312,7 +312,7 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
   }
 }
 
-object ScalaImportOrganizerAction {
+object ScalaImportsOrganizerAction {
   private case class Import(qualifier: String, name: String, rename: Option[String], expr: ScImportExpr)
     extends Comparable[Import] {
 

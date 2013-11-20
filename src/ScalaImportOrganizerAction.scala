@@ -49,6 +49,29 @@ case class Import(qualifier: String, name: String, rename: Option[String], expr:
   }
 }
 
+/**
+ * Attempts a best-effort organization of Scala imports.
+ * By default, shows up in the Tools menu and with the shortcut Ctrl+Shift+O, as in Organize.
+ *
+ * Things we do:
+ *   - Bucket imports based on style configuration, then sort within each bucket.
+ *   - Place multiple imports from the same package on the same line.
+ *   - Correctly handle renaming imports with wildcards.
+ *       We will ensure that all renames come before the final wildcard.
+ *       We will not attempt to de-duplicate imports that utilize renaming.
+ *   - Correctly handle all import formats from the Scala language specification.
+ *       Who the hell uses the "import java.util._, java.awt._" style, though?
+ *   - Optionally remove unused imports using the Intellij Scala Import Optimizer.
+ *   - Attempt to maintain correct spacing before and after the imports.
+ *       This is actually based on the initial spacing, so if the pre/post imports
+ *       spacing is wrong, you should only have to fix it once.
+ *
+ * Things we don't do:
+ *  - Detect non-commutative imports.
+ *      If your project is fucked up enough to have these, this plugin won't save you.
+ *  - Allow arbitrary spacing between import groups.
+ *      One extra new line should be enough.
+ */
 class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
 
   def actionPerformed(event: AnActionEvent) {

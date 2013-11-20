@@ -1,3 +1,5 @@
+package com.scalaImportsOrganizer
+
 import scala.collection.{Seq, mutable}
 import scala.collection.JavaConversions._
 
@@ -281,7 +283,7 @@ class ScalaImportOrganizerAction extends AnAction("Scala Import Organizer") {
     val psiFile: PsiFile = e.getData(LangDataKeys.PSI_FILE)
     val editor: Editor = e.getData(PlatformDataKeys.EDITOR)
     if (psiFile == null || editor == null || !psiFile.isInstanceOf[ScalaFile]) {
-      return null
+      return (null, null)
     }
 
     val offset: Int = editor.getCaretModel.getOffset

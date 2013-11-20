@@ -1,3 +1,5 @@
+package com.scalaImportsOrganizer;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
@@ -21,6 +23,4 @@ public class ScalaImportsStyleSettings extends CustomCodeStyleSettings {
             "import *\n";
 
     public boolean optimizeImports = true;
-
-    public boolean renamesOnNewLine = true;
 }

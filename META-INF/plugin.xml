@@ -1,16 +1,15 @@
 <idea-plugin version="2">
-  <id>com.databricks.scalaImportOrganizer</id>
+  <id>com.scalaImportOrganizer</id>
   <name>Scala Import Organizer</name>
   <version>0.1.1</version>
-  <vendor email="aaron@databricks.com" url="http://www.databricks.com">Databricks</vendor>
+  <vendor email="aaron.d.dav@gmail.com">Aaron Davidson</vendor>
 
   <description><![CDATA[
       Best-effort import organization for Scala.
       ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <small>most HTML tags may be used</small>
+      <b>0.1.1</b> Released!
       ]]>
   </change-notes>
 
@@ -24,13 +23,13 @@
   <project-components/>
 
   <actions>
-      <action  id="ScalaImportOrganizer" class="ScalaImportOrganizerAction" text="Organize Scala Imports">
+      <action  id="ScalaImportOrganizer" class="com.scalaImportsOrganizer.ScalaImportOrganizerAction" text="Organize Scala Imports">
           <keyboard-shortcut first-keystroke="control shift O" keymap="$default"/>
           <add-to-group group-id="ToolsMenu" anchor="last"/>
       </action>
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
-      <codeStyleSettingsProvider implementation="ScalaImportsCodeStyleSettingsProvider"/>
+      <codeStyleSettingsProvider implementation="com.scalaImportsOrganizer.ScalaImportsCodeStyleSettingsProvider"/>
   </extensions>
 </idea-plugin>

@@ -1,3 +1,5 @@
+package com.scalaImportsOrganizer;
+
 import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.highlighter.EditorHighlighter;
@@ -13,10 +15,10 @@ import java.awt.*;
 
 public class ImportsPanel extends CodeStyleAbstractPanel {
 
-    private JPanel panel;
-    private JLabel description;
-    private JTextArea importStyle;
-    private JCheckBox optimizeImports;
+    private final JPanel panel;
+    private final JLabel description;
+    private final JTextArea importStyle;
+    private final JCheckBox optimizeImports;
 
     public ImportsPanel(@NotNull CodeStyleSettings settings) {
         super(settings);

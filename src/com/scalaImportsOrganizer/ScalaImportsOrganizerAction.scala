@@ -130,7 +130,6 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
       var nextElem = finalElem.getNextSibling
       val extraWhitespace = mutable.ArrayBuffer[PsiWhiteSpace]()
       while (nextElem != null) {
-        println(" >> " + nextElem.getClass + " / " + nextElem.getText + " : " + nextElem.isInstanceOf[PsiWhiteSpace])
         nextElem match {
           case whitespace: PsiWhiteSpace =>
             extraWhitespace += nextElem.asInstanceOf[PsiWhiteSpace]

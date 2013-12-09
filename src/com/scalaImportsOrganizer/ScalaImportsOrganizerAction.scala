@@ -127,20 +127,24 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
     private def removePriorImports(priorImports: Seq[ScImportExpr], finalElem: PsiElement) {
       priorImports.foreach(_.deleteExpr())
 
-      var nextElem = finalElem.getNextSibling
-      val extraWhitespace = mutable.ArrayBuffer[PsiWhiteSpace]()
-      while (nextElem != null) {
-        nextElem match {
-          case whitespace: PsiWhiteSpace =>
-            extraWhitespace += nextElem.asInstanceOf[PsiWhiteSpace]
-            nextElem = nextElem.getNextSibling
-          case _ =>
-            nextElem = null
+      if (finalElem != null) {
+        var nextElem = finalElem.getNextSibling
+        val extraWhitespace = mutable.ArrayBuffer[PsiWhiteSpace]()
+        while (nextElem != null) {
+          nextElem match {
+            case whitespace: PsiWhiteSpace =>
+              extraWhitespace += nextElem.asInstanceOf[PsiWhiteSpace]
+              nextElem = nextElem.getNextSibling
+            case _ =>
+              nextElem = null
+          }
+        }
+
+        if (extraWhitespace.size >= 1) {
+          extraWhitespace.head.replace(makeNewLineElement())
+          extraWhitespace.tail.foreach(_.delete())
         }
       }
-
-      extraWhitespace.head.replace(makeNewLineElement())
-      extraWhitespace.tail.foreach(_.delete())
     }
 
     /**

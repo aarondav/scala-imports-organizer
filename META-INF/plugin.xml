@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.scalaImportsOrganizer</id>
   <name>Scala Imports Organizer</name>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
   <vendor email="aaron.d.dav@gmail.com">Aaron Davidson</vendor>
 
   <description><![CDATA[
@@ -9,6 +9,7 @@
       ]]></description>
 
   <change-notes><![CDATA[
+      <b>0.1.3</b> Fixed NPE for files with no imports and removed debugging output.<br />
       <b>0.1.1</b> Released!
       ]]>
   </change-notes>

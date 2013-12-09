@@ -3,7 +3,6 @@ package com.scalaImportsOrganizer
 import scala.collection.{Seq, mutable}
 import scala.collection.JavaConversions._
 
-import ScalaImportsOrganizerAction.Import
 import com.google.common.collect.{Sets, TreeMultimap}
 import com.intellij.openapi.actionSystem._
 import com.intellij.openapi.application.ApplicationManager
@@ -12,6 +11,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi._
 import com.intellij.psi.util.PsiTreeUtil
+import com.scalaImportsOrganizer.ScalaImportsOrganizerAction.Import
 import org.jetbrains.plugins.scala.codeInspection.unusedInspections.ScalaOptimizeImportsFix
 import org.jetbrains.plugins.scala.lang.psi.ScImportsHolder
 import org.jetbrains.plugins.scala.lang.psi.api.ScalaFile

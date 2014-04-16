@@ -222,6 +222,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
     val exactTopLevelImportRegex = "import ([^\\*\\.])+".r
     val exactImportRegex = "import ([^\\*]*[^\\.\\*])\\.([\\w]+)".r
     val wildcardImportRegex = "import ([^\\*]*[^\\.\\*])\\.\\*".r
+    val innerWildcardImportRegex = "import ([^\\*]*[^\\.\\*])\\.\\*\\.([^\\*]*[^\\.\\*])".r
     val matchAllRegex = "import \\*".r
     val newLine = "\\s*".r
 
@@ -236,6 +237,10 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
           val matches = importMap.keySet().
             filter(qualifier => qualifier == prefix || qualifier.startsWith(prefix + "."))
           matches.flatMap(qualifier => importMap.get(qualifier)).toSeq
+        case innerWildcardImportRegex(prefix, suffix) =>
+	        val matches = importMap.entries().map(e => e.getKey + "." + e.getValue.rename.getOrElse(e.getValue.name) -> e.getValue).toMap
+		        .filterKeys(k => k.startsWith(prefix + ".") && k.endsWith("." + suffix))
+	        matches.values.toSeq
         case matchAllRegex() =>
           importMap.values().toSeq
         case e @ _ => throw new IllegalStateException("Invalid import style: " + e)

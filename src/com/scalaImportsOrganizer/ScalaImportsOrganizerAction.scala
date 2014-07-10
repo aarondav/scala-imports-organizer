@@ -269,7 +269,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
           imports(0).name
         } else {
           // This will sort imports such that the wildcard is LAST, which is very important for renames.
-          val sortedImports = imports.toList.sorted(Ordering.by[Import, String](_.name))
+          val sortedImports = imports.toList.sorted
           val importString = sortedImports.map { imp =>
             val renameString = imp.rename.map(s" $arrow " + _).getOrElse("")
             imp.name + renameString
@@ -326,10 +326,8 @@ object ScalaImportsOrganizerAction {
   private case class Import(qualifier: String, name: String, rename: Option[String], expr: ScImportExpr)
     extends Comparable[Import] {
 
-    override def compareTo(other: Import): Int = comparableName.compareTo(other.comparableName)
-
     /**
-     * Order _ before anything else, and order final packages above subpackages.
+     * Order _ after anything else, and order final packages above subpackages.
      * We do the latter, such that "java.util" is ordered before "java.awt.blah" because
      * we want something like
      *     import org.apache.spark.deploy.{ApplicationDescription, ExecutorState}
@@ -337,7 +335,18 @@ object ScalaImportsOrganizerAction {
      * instead of inline ordering, which would have the two broken up by the DeployMessages import.
      * (Note that the period character comes before all other word characters, and underscore comes after.)
      */
-    def comparableName = qualifier + ".." + (if (name == "_") "" else name)
+    override def compareTo(other: Import): Int = {
+      val qualifierCmp = qualifier.compareTo(other.qualifier)
+      if (qualifierCmp != 0) {
+        qualifierCmp
+      } else {
+        (name, other.name) match {
+          case ("_", n) if n != "_" => 1
+          case (n, "_") if n != "_" => -1
+          case (n1, n2) => n1.compareTo(n2)
+        }
+      }
+    }
 
     override def equals(other: Any): Boolean = {
       if (other == null || !other.isInstanceOf[Import]) { return false }

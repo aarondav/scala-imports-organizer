@@ -180,7 +180,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
               newlineBuffered = false
             }
 
-            if (bufferedQualifier != imp.qualifier) {
+            if (bufferedQualifier != imp.qualifier || imp.qualifier == "") {
               emitImportStatement()
             }
 

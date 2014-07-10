@@ -86,10 +86,10 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
           val qualifier = Option(expr.qualifier).map(_.qualName).getOrElse("")
           val selectors = expr.getNames.toList ++ (if (expr.singleWildcard) Seq("_") else Nil)
 
-          val renameRegex = "\\s*([\\w]+)\\s*=>\\s*([\\w]+)\\s*".r
-          val standardRegex = "\\s*([\\w]+)\\s*".r
+          val renameRegex = "\\s*([^\\s]+)\\s*(=>|⇒)\\s*([^\\s]+)\\s*".r
+          val standardRegex = "\\s*([^\\s]+)\\s*".r
           selectors.map {
-            case renameRegex(name, rename) => Import(qualifier, name, Some(rename), expr)
+            case renameRegex(name, _, rename) => Import(qualifier, name, Some(rename), expr)
             case standardRegex(name) => Import(qualifier, name, None, expr)
           }.foreach(selector => importMap.put(qualifier, selector))
         }

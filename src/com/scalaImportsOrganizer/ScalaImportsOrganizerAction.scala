@@ -51,6 +51,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
     val project = scalaFile.getProject
     val settings = ScalaImportsStyleSettings.getInstance(project)
     val optimizeImports = settings.optimizeImports
+    val unicodeArrow = settings.unicodeArrow
     /** Add an implicit "import *" to the imports. */
     val importStyle = settings.importStyle + "\n\nimport *"
 
@@ -260,6 +261,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
      */
     private def makeImportStatement(imports: Seq[Import]): ScImportStmt = {
       assert(imports.size > 0)
+      val arrow = if (unicodeArrow) "⇒" else "=>"
       val qualifier = imports.head.qualifier
       val separator = if (qualifier == "") "" else "."
       val selector =
@@ -269,7 +271,7 @@ class ScalaImportsOrganizerAction extends AnAction("Scala Import Organizer") {
           // This will sort imports such that the wildcard is LAST, which is very important for renames.
           val sortedImports = imports.toList.sorted(Ordering.by[Import, String](_.name))
           val importString = sortedImports.map { imp =>
-            val renameString = imp.rename.map(" => " + _).getOrElse("")
+            val renameString = imp.rename.map(s" $arrow " + _).getOrElse("")
             imp.name + renameString
           }.mkString(", ")
           "{" + importString + "}"

@@ -18,7 +18,9 @@ public class ScalaImportsConfigurationPanel extends CodeStyleAbstractPanel {
     private final JPanel panel;
     private final JLabel description;
     private final JTextArea importStyle;
+    private final JPanel checkboxes;
     private final JCheckBox optimizeImports;
+    private final JCheckBox unicodeArrow;
 
     public ScalaImportsConfigurationPanel(@NotNull CodeStyleSettings settings) {
         super(settings);
@@ -30,11 +32,17 @@ public class ScalaImportsConfigurationPanel extends CodeStyleAbstractPanel {
         description = new JLabel("Enter groups of imports using *. Separate groups using newlines.");
         description.setPreferredSize(new Dimension(120, 20));
         importStyle = new JTextArea(mySettings.importStyle, 30, 120);
+        checkboxes = new JPanel();
+        checkboxes.setLayout(new BorderLayout());
         optimizeImports = new JCheckBox("Remove unused imports", mySettings.optimizeImports);
         optimizeImports.setPreferredSize(new Dimension(120, 20));
+        unicodeArrow = new JCheckBox("Use Unicode \"⇒\" as arrow character", mySettings.unicodeArrow);
+        unicodeArrow.setPreferredSize(new Dimension(120, 20));
+        checkboxes.add(optimizeImports, BorderLayout.NORTH);
+        checkboxes.add(unicodeArrow, BorderLayout.CENTER);
         panel.add(description, BorderLayout.NORTH);
         panel.add(importStyle, BorderLayout.CENTER);
-        panel.add(optimizeImports, BorderLayout.SOUTH);
+        panel.add(checkboxes, BorderLayout.SOUTH);
     }
 
     @Override
@@ -70,13 +78,15 @@ public class ScalaImportsConfigurationPanel extends CodeStyleAbstractPanel {
         ScalaImportsStyleSettings mySettings = settings.getCustomSettings(ScalaImportsStyleSettings.class);
         mySettings.importStyle = importStyle.getText();
         mySettings.optimizeImports = optimizeImports.isSelected();
+        mySettings.unicodeArrow = unicodeArrow.isSelected();
     }
 
     @Override
     public boolean isModified(CodeStyleSettings settings) {
         ScalaImportsStyleSettings mySettings = settings.getCustomSettings(ScalaImportsStyleSettings.class);
         return !importStyle.getText().equals(mySettings.importStyle) ||
-                optimizeImports.isSelected() != mySettings.optimizeImports;
+                optimizeImports.isSelected() != mySettings.optimizeImports ||
+                unicodeArrow.isSelected() != mySettings.unicodeArrow;
     }
 
     @Nullable
@@ -90,5 +100,6 @@ public class ScalaImportsConfigurationPanel extends CodeStyleAbstractPanel {
         ScalaImportsStyleSettings mySettings = settings.getCustomSettings(ScalaImportsStyleSettings.class);
         importStyle.setText(mySettings.importStyle);
         optimizeImports.setSelected(mySettings.optimizeImports);
+        unicodeArrow.setSelected(mySettings.unicodeArrow);
     }
 }

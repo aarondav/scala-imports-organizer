@@ -23,4 +23,6 @@ public class ScalaImportsStyleSettings extends CustomCodeStyleSettings {
             "import *\n";
 
     public boolean optimizeImports = true;
+
+    public boolean unicodeArrow = false;
 }

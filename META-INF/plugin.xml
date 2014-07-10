@@ -1,14 +1,18 @@
 <idea-plugin version="2">
   <id>com.scalaImportsOrganizer</id>
   <name>Scala Imports Organizer</name>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <vendor email="aaron.d.dav@gmail.com">Aaron Davidson</vendor>
 
   <description><![CDATA[
-      Best-effort imports organization for Scala.
+      Best-effort imports organization for Scala.<br/><br/>
+
+      Note that IntelliJ 13.1 added in-house support for Scala import organization, so you probably
+      shouldn't use this plugin anymore. It still works, though.
       ]]></description>
 
   <change-notes><![CDATA[
+      <b>0.1.4</b> Adds support for wildcards in the middle of imports, the Unicode arrow, and weird import names.<br />
       <b>0.1.3</b> Fixed NPE for files with no imports and removed debugging output.<br />
       <b>0.1.1</b> Released!
       ]]>
